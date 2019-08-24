@@ -1,15 +1,3 @@
-// A basic everyday NeoPixel strip test program.
-
-// NEOPIXEL BEST PRACTICES for most reliable operation:
-// - Add 1000 uF CAPACITOR between NeoPixel strip's + and - connections.
-// - MINIMIZE WIRING LENGTH between microcontroller board and first pixel.
-// - NeoPixel strip's DATA-IN should pass through a 300-500 OHM RESISTOR.
-// - AVOID connecting NeoPixels on a LIVE CIRCUIT. If you must, ALWAYS
-//   connect GROUND (-) first, then +, then data.
-// - When using a 3.3V microcontroller with a 5V-powered NeoPixel strip,
-//   a LOGIC-LEVEL CONVERTER on the data line is STRONGLY RECOMMENDED.
-// (Skipping these may work OK on your workbench but can fail in the field)
-
 #include <Adafruit_NeoPixel.h>
 #ifdef __AVR__
  #include <avr/power.h> // Required for 16 MHz Adafruit Trinket
@@ -54,11 +42,11 @@ void setup() {
 
 void loop() {
   // Fill along the length of the strip in various colors...
-  colorWipe(strip.Color(255,   0,   0), 30); // Red
+  colorWipe(strip.Color(255,   0,   0), 40); // Red
   colorWipe(strip.Color(140,   255,   0), 40); // Yellow
-  colorWipe(strip.Color(  0, 255,   0), 30); // Green
-  colorWipe(strip.Color(  0,   0, 255), 30); // Blue
-  colorWipe(strip.Color(86,   8,   204), 30); // Purple
+  colorWipe(strip.Color(  0, 255,   0), 40); // Green
+  colorWipe(strip.Color(  0,   0, 255), 40); // Blue
+  colorWipe(strip.Color(86,   8,   204), 40); // Purple
 }
 
 
