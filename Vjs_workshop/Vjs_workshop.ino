@@ -1,66 +1,45 @@
-#include <Adafruit_NeoPixel.h>
+// This code is adapted from Adafruit's Examples - Part of the NeoPixel Library
+
+#include <Adafruit_NeoPixel.h> // Imports the libraries
 #ifdef __AVR__
- #include <avr/power.h> // Required for 16 MHz Adafruit Trinket
+ #include <avr/power.h>
 #endif
 
-// Which pin on the Arduino is connected to the NeoPixels?
-// On a Trinket or Gemma we suggest changing this to 1:
-#define LED_PIN    6
 
-// How many NeoPixels are attached to the Arduino?
-#define LED_COUNT 60
+#define LED_PIN    6 // NeoPixels Connected to Pin 6 on the Arduino
 
-// Declare our NeoPixel strip object:
+
+#define LED_COUNT 60 // 60 = The number of NeoPixel LEDs connected to the Arduino
+
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
-// Argument 1 = Number of pixels in NeoPixel strip
-// Argument 2 = Arduino pin number (most are valid)
-// Argument 3 = Pixel type flags, add together as needed:
-//   NEO_KHZ800  800 KHz bitstream (most NeoPixel products w/WS2812 LEDs)
-//   NEO_KHZ400  400 KHz (classic 'v1' (not v2) FLORA pixels, WS2811 drivers)
-//   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
-//   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
-//   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
 
 
-// setup() function -- runs once at startup --------------------------------
+
+// void setup() = Runs once on startup
 
 void setup() {
-  // These lines are specifically to support the Adafruit Trinket 5V 16 MHz.
-  // Any other board, you can remove this part (but no harm leaving it):
-#if defined(__AVR_ATtiny85__) && (F_CPU == 16000000)
-  clock_prescale_set(clock_div_1);
-#endif
-  // END of Trinket-specific code.
-
   strip.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
   strip.show();            // Turn OFF all pixels ASAP
   strip.setBrightness(70); // Set BRIGHTNESS to about 1/5 (max = 255)
 }
 
 
-// loop() function -- runs repeatedly as long as board is on ---------------
+// void loop() = runs in a loop until the reset button is pressed (or the power is cut)
 
 void loop() {
-  // Fill along the length of the strip in various colors...
-  colorWipe(strip.Color(255,   0,   0), 40); // Red
-  colorWipe(strip.Color(140,   255,   0), 40); // Yellow
-  colorWipe(strip.Color(  0, 255,   0), 40); // Green
-  colorWipe(strip.Color(  0,   0, 255), 40); // Blue
-  colorWipe(strip.Color(86,   8,   204), 40); // Purple
+  colorWipe(strip.Color(255,   0,   0), 40); // Set strip to Red
+  colorWipe(strip.Color(140,   255,   0), 40); // Set strip to Yellow
+  colorWipe(strip.Color(  0, 255,   0), 40); // Set strip to Green
+  colorWipe(strip.Color(  0,   0, 255), 40); // Set strip to Blue
+  colorWipe(strip.Color(86,   8,   204), 40); // Set strip to Purple
 }
 
-
-// Some functions of our own for creating animated effects -----------------
-
 // Fill strip pixels one after another with a color. Strip is NOT cleared
-// first; anything there will be covered pixel by pixel. Pass in color
-// (as a single 'packed' 32-bit value, which you can get by calling
-// strip.Color(red, green, blue) as shown in the loop() function above),
-// and a delay time (in milliseconds) between pixels.
+
 void colorWipe(uint32_t color, int wait) {
-  for(int i=0; i<strip.numPixels(); i++) { // For each pixel in strip...
-    strip.setPixelColor(i, color);         //  Set pixel's color (in RAM)
-    strip.show();                          //  Update strip to match
+  for(int i=0; i<strip.numPixels(); i++) {
+    strip.setPixelColor(i, color);
+    strip.show();
     delay(wait);                           //  Pause for a moment
   }
 }
